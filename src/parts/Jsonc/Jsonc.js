@@ -1,33 +1,34 @@
-import * as CharCode from "../JsoncCharCode/JsoncCharCode.js";
-import * as TokenType from "../JsoncTokenType/JsoncTokenType.js";
+import * as CharCode from '../JsoncCharCode/JsoncCharCode.js'
+import * as TokenType from '../JsoncTokenType/JsoncTokenType.js'
+import * as Literal from '../Literal/Literal.js'
 
 const createScanner = (text) => {
-  let offset = 0;
-  const length = text.length;
+  let offset = 0
+  const length = text.length
 
   const scanValue = () => {
     while (offset < length) {
-      const code = text.charCodeAt(offset);
+      const code = text.charCodeAt(offset)
       switch (code) {
         case CharCode.CurlyOpen:
-          offset++;
-          return TokenType.CurlyOpen;
+          offset++
+          return TokenType.CurlyOpen
         case CharCode.CurlyClose:
-          offset++;
-          return TokenType.CurlyClose;
+          offset++
+          return TokenType.CurlyClose
         case CharCode.SquareOpen:
-          offset++;
-          return TokenType.SquareOpen;
+          offset++
+          return TokenType.SquareOpen
         case CharCode.SquareClose:
-          offset++;
-          return TokenType.SquareClose;
+          offset++
+          return TokenType.SquareClose
         case CharCode.DoubleQuote:
-          offset++;
-          return TokenType.DoubleQuote;
+          offset++
+          return TokenType.DoubleQuote
         case CharCode.Comma:
-          text.slice(offset); //?
-          offset++;
-          return TokenType.Comma;
+          text.slice(offset) //?
+          offset++
+          return TokenType.Comma
         case CharCode.Zero:
         case CharCode.One:
         case CharCode.Two:
@@ -39,62 +40,62 @@ const createScanner = (text) => {
         case CharCode.Eight:
         case CharCode.Nine:
         case CharCode.Dot:
-          offset++;
-          return TokenType.Numeric;
+          offset++
+          return TokenType.Numeric
         case CharCode.CarriageReturn:
         case CharCode.LineFeed:
         case CharCode.Tab:
         case CharCode.Space:
-          offset++;
-          break;
+          offset++
+          break
         case CharCode.Slash:
-          return TokenType.Slash;
+          return TokenType.Slash
         default:
-          return TokenType.Literal;
+          return TokenType.Literal
       }
     }
-    return TokenType.Eof;
-  };
+    return TokenType.Eof
+  }
 
   const scanString = () => {
     while (offset < length) {
-      const code = text.charCodeAt(offset);
+      const code = text.charCodeAt(offset)
       if (code === CharCode.DoubleQuote) {
-        break;
+        break
       }
-      offset++;
+      offset++
     }
-    offset++;
-    const start = offset;
+    offset++
+    const start = offset
     while (offset < length) {
-      const code = text.charCodeAt(offset);
+      const code = text.charCodeAt(offset)
       if (code === CharCode.DoubleQuote) {
-        break;
+        break
       }
-      offset++;
+      offset++
     }
-    const result = text.slice(start, offset);
-    offset++;
-    return result;
-  };
+    const result = text.slice(start, offset)
+    offset++
+    return result
+  }
 
   const scanPropertyName = () => {
-    return scanString();
-  };
+    return scanString()
+  }
 
   const scanPropertyColon = () => {
-    const code = text.charCodeAt(offset);
-    offset++;
-  };
+    const code = text.charCodeAt(offset)
+    offset++
+  }
 
   const goBack = (delta) => {
-    offset -= delta;
-  };
+    offset -= delta
+  }
 
   const scanNumber = () => {
-    const start = offset;
+    const start = offset
     outer: while (offset < length) {
-      const code = text.charCodeAt(offset);
+      const code = text.charCodeAt(offset)
       switch (code) {
         case CharCode.Zero:
         case CharCode.One:
@@ -107,36 +108,36 @@ const createScanner = (text) => {
         case CharCode.Eight:
         case CharCode.Nine:
         case CharCode.Dot:
-          break;
+          break
         default:
-          break outer;
+          break outer
       }
-      offset++;
+      offset++
     }
-    const result = text.slice(start, offset);
-    result;
-    return result;
-  };
+    const result = text.slice(start, offset)
+    result
+    return result
+  }
 
   const scanLiteral = () => {
-    const start = offset;
+    const start = offset
     outer: while (offset < length) {
-      const code = text.charCodeAt(offset);
+      const code = text.charCodeAt(offset)
       switch (code) {
         case CharCode.LineFeed:
         case CharCode.CarriageReturn:
         case CharCode.Tab:
         case CharCode.Space:
         case CharCode.Comma:
-          break outer;
+          break outer
         default:
-          break;
+          break
       }
-      offset++;
+      offset++
     }
-    const result = text.slice(start, offset);
-    return result;
-  };
+    const result = text.slice(start, offset)
+    return result
+  }
 
   const scanBlockComment = () => {
     while (offset < length) {
@@ -144,33 +145,33 @@ const createScanner = (text) => {
         text.charCodeAt(offset) === CharCode.Star &&
         text.charCodeAt(offset + 1) === CharCode.Slash
       ) {
-        break;
+        break
       }
-      offset++;
+      offset++
     }
-  };
+  }
 
   const scanLineComment = () => {
     while (offset < length) {
-      const code = text.charCodeAt(offset);
+      const code = text.charCodeAt(offset)
       if (code === CharCode.LineFeed) {
-        break;
+        break
       }
-      offset++;
+      offset++
     }
-  };
+  }
 
   const scanComment = () => {
-    const code = text.charCodeAt(offset);
+    const code = text.charCodeAt(offset)
     switch (code) {
       case CharCode.Star:
-        return scanBlockComment();
+        return scanBlockComment()
       case CharCode.Slash:
-        return scanLineComment();
+        return scanLineComment()
       default:
-        break;
+        break
     }
-  };
+  }
 
   return {
     scanValue,
@@ -182,126 +183,126 @@ const createScanner = (text) => {
     scanLiteral,
     scanComment,
     getOffset() {
-      return offset;
+      return offset
     },
-  };
-};
+  }
+}
 
 const parsePropertyName = (scanner) => {
-  const propertyName = scanner.scanPropertyName();
-  return propertyName;
-};
+  const propertyName = scanner.scanPropertyName()
+  return propertyName
+}
 
 const parsePropertyColon = (scanner) => {
-  scanner.scanPropertyColon();
-};
+  scanner.scanPropertyColon()
+}
 
 const parseNumber = (scanner) => {
-  scanner.goBack(1);
-  const rawValue = scanner.scanNumber();
-  const value = parseFloat(rawValue);
-  return value;
-};
+  scanner.goBack(1)
+  const rawValue = scanner.scanNumber()
+  const value = parseFloat(rawValue)
+  return value
+}
 
 const parseObject = (scanner) => {
-  const object = {};
+  const object = {}
   outer: while (true) {
-    const token = scanner.scanValue();
+    const token = scanner.scanValue()
     switch (token) {
       case TokenType.Eof:
       case TokenType.None:
       case TokenType.CurlyClose:
-        break outer;
+        break outer
       case TokenType.DoubleQuote:
-        scanner.goBack(1);
-        const propertyName = parsePropertyName(scanner);
-        parsePropertyColon(scanner);
-        const value = parseValue(scanner);
-        object[propertyName] = value;
+        scanner.goBack(1)
+        const propertyName = parsePropertyName(scanner)
+        parsePropertyColon(scanner)
+        const value = parseValue(scanner)
+        object[propertyName] = value
       case TokenType.Comma:
-        break;
+        break
       case TokenType.Slash:
-        parseComment(scanner);
-        break;
+        parseComment(scanner)
+        break
       default:
-        break;
+        break
     }
   }
-  return object;
-};
+  return object
+}
 
 const parseString = (scanner) => {
-  scanner.goBack(1);
-  const value = scanner.scanString();
-  return value;
-};
+  scanner.goBack(1)
+  const value = scanner.scanString()
+  return value
+}
 
 const parseArray = (scanner) => {
-  const array = [];
+  const array = []
   outer: while (true) {
-    const token = scanner.scanValue();
+    const token = scanner.scanValue()
     switch (token) {
       case TokenType.Eof:
       case TokenType.None:
       case TokenType.SquareClose:
-        break outer;
+        break outer
       case TokenType.Slash:
-        scanner.scanComment();
-        break;
+        scanner.scanComment()
+        break
       default:
-        scanner.goBack(1);
-        const value = parseValue(scanner);
-        array.push(value);
-        break;
+        scanner.goBack(1)
+        const value = parseValue(scanner)
+        array.push(value)
+        break
       case TokenType.Comma:
-        break;
+        break
     }
   }
-  return array;
-};
+  return array
+}
 
 const parseLiteral = (scanner) => {
-  const rawValue = scanner.scanLiteral();
+  const rawValue = scanner.scanLiteral()
   switch (rawValue) {
-    case "true":
-      return true;
-    case "false":
-      return false;
-    case "null":
-      return null;
+    case Literal.True:
+      return true
+    case Literal.False:
+      return false
+    case Literal.Null:
+      return null
     default:
-      return undefined;
+      return undefined
   }
-};
+}
 
 const parseComment = (scanner) => {
-  scanner.scanComment();
-};
+  scanner.scanComment()
+}
 
 const parseValue = (scanner) => {
-  const token = scanner.scanValue();
+  const token = scanner.scanValue()
   switch (token) {
     case TokenType.CurlyOpen:
-      return parseObject(scanner);
+      return parseObject(scanner)
     case TokenType.DoubleQuote:
-      return parseString(scanner);
+      return parseString(scanner)
     case TokenType.Numeric:
-      return parseNumber(scanner);
+      return parseNumber(scanner)
     case TokenType.SquareOpen:
-      return parseArray(scanner);
+      return parseArray(scanner)
     case TokenType.Literal:
-      return parseLiteral(scanner);
+      return parseLiteral(scanner)
     case TokenType.Slash:
-      parseComment(scanner);
-      return parseValue(scanner);
+      parseComment(scanner)
+      return parseValue(scanner)
     default:
-      token;
-      return undefined;
+      token
+      return undefined
   }
-};
+}
 
 export const parse = (text) => {
-  const scanner = createScanner(text);
-  const result = parseValue(scanner);
-  return result;
-};
+  const scanner = createScanner(text)
+  const result = parseValue(scanner)
+  return result
+}
