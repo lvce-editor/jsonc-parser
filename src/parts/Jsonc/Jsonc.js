@@ -224,6 +224,9 @@ const parseObject = (scanner) => {
       case TokenType.Slash:
         parseComment(scanner)
         break
+      case TokenType.Literal:
+        parseLiteral(scanner)
+        break
       default:
         break
     }
@@ -296,7 +299,6 @@ const parseValue = (scanner) => {
       parseComment(scanner)
       return parseValue(scanner)
     default:
-      token
       return undefined
   }
 }
