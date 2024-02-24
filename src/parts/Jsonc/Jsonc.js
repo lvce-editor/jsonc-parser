@@ -92,6 +92,10 @@ const createScanner = (text) => {
     offset -= delta
   }
 
+  const advance = (delta) => {
+    offset += delta
+  }
+
   const scanNumber = () => {
     const start = offset
     outer: while (offset < length) {
@@ -180,6 +184,7 @@ const createScanner = (text) => {
     scanString,
     scanNumber,
     goBack,
+    advance,
     scanLiteral,
     scanComment,
     getOffset() {
@@ -208,12 +213,14 @@ const parseObject = (scanner) => {
   const object = {}
   outer: while (true) {
     const token = scanner.scanValue()
+    console.log({ token })
     switch (token) {
       case TokenType.Eof:
       case TokenType.None:
       case TokenType.CurlyClose:
         break outer
       case TokenType.DoubleQuote:
+        console.log('go back')
         scanner.goBack(1)
         const propertyName = parsePropertyName(scanner)
         parsePropertyColon(scanner)
@@ -223,6 +230,9 @@ const parseObject = (scanner) => {
         break
       case TokenType.Slash:
         parseComment(scanner)
+        break
+      case TokenType.Literal:
+        parseLiteral(scanner)
         break
       default:
         break
@@ -296,7 +306,7 @@ const parseValue = (scanner) => {
       parseComment(scanner)
       return parseValue(scanner)
     default:
-      token
+      scanner.advance(1)
       return undefined
   }
 }

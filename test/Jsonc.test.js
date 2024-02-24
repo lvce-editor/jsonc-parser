@@ -3,14 +3,14 @@ import * as Jsonc from '../src/parts/Jsonc/Jsonc.js'
 test('parse - line comment and object', () => {
   expect(
     Jsonc.parse(`// test
-{}`)
+{}`),
   ).toEqual({})
 })
 
 test('parse - block comment and object', () => {
   expect(
     Jsonc.parse(`/* test */
-{}`)
+{}`),
   ).toEqual({})
 })
 
@@ -22,7 +22,7 @@ test('parse - line comment inside object', () => {
   expect(
     Jsonc.parse(`{
   // test
-}`)
+}`),
   ).toEqual({})
 })
 
@@ -30,7 +30,7 @@ test('parse - line comment inside array', () => {
   expect(
     Jsonc.parse(`[
   // test
-]`)
+]`),
   ).toEqual([])
 })
 
@@ -67,7 +67,7 @@ test('parse - object with multiple properties', () => {
     Jsonc.parse(`{
   "a": 1,
   "b": 2
-}`)
+}`),
   ).toEqual({ a: 1, b: 2 })
 })
 
@@ -80,7 +80,7 @@ test('parse - object with array and other property', () => {
     }
   ],
   "key": "value"
-}`)
+}`),
   ).toEqual({
     config: [
       {
@@ -108,7 +108,7 @@ test.skip('parse - object with multiple properties and trailing comma', () => {
     Jsonc.parse(`{
   "a": 1,
   "b": 2,
-}`)
+}`),
   ).toEqual({ a: 1, b: 2 })
 })
 
@@ -116,7 +116,7 @@ test('parse - boolean property value', () => {
   expect(
     Jsonc.parse(`{
   "enabled": true
-}`)
+}`),
   ).toEqual({ enabled: true })
 })
 
@@ -126,7 +126,7 @@ test('parse - object inside object', () => {
   "a": {
     "b": {}
   }
-}`)
+}`),
   ).toEqual({ a: { b: {} } })
 })
 
@@ -134,7 +134,7 @@ test('parse - block comment inside array', () => {
   expect(
     Jsonc.parse(`[
   "test" /* comment */
-]`)
+]`),
   ).toEqual(['test'])
 })
 
@@ -146,7 +146,7 @@ test('parse - boolean property value', () => {
   expect(
     Jsonc.parse(`{
   "enabled": true
-}`)
+}`),
   ).toEqual({ enabled: true })
 })
 
@@ -156,6 +156,25 @@ test('parse - boolean property value and whitespace', () => {
   "a": true,
 
   "b": false
-}`)
+}`),
   ).toEqual({ a: true, b: false })
+})
+
+test('parse - invalid - unclosed quote', () => {
+  expect(
+    Jsonc.parse(`{
+  "git.confirmDiscard": "t,
+  "editor.lineHeight": 20
+}`),
+  ).toEqual({
+    'git.confirmDiscard': 't,\n  ',
+  })
+})
+
+test('parse - invalid - text after quote', () => {
+  expect(
+    Jsonc.parse(`{
+  "git.confirmDiscard": "t"t
+}`),
+  ).toEqual({ 'git.confirmDiscard': 't' })
 })
