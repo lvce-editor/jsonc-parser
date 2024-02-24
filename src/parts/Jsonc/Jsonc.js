@@ -92,10 +92,6 @@ const createScanner = (text) => {
     offset -= delta
   }
 
-  const advance = (delta) => {
-    offset += delta
-  }
-
   const scanNumber = () => {
     const start = offset
     outer: while (offset < length) {
@@ -184,7 +180,6 @@ const createScanner = (text) => {
     scanString,
     scanNumber,
     goBack,
-    advance,
     scanLiteral,
     scanComment,
     getOffset() {
