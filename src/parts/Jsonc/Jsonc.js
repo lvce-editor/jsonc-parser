@@ -304,7 +304,6 @@ const parseValue = (scanner) => {
       parseComment(scanner)
       return parseValue(scanner)
     default:
-      scanner.advance(1)
       return undefined
   }
 }
