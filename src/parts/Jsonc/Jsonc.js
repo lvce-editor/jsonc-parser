@@ -213,14 +213,12 @@ const parseObject = (scanner) => {
   const object = {}
   outer: while (true) {
     const token = scanner.scanValue()
-    console.log({ token })
     switch (token) {
       case TokenType.Eof:
       case TokenType.None:
       case TokenType.CurlyClose:
         break outer
       case TokenType.DoubleQuote:
-        console.log('go back')
         scanner.goBack(1)
         const propertyName = parsePropertyName(scanner)
         parsePropertyColon(scanner)
