@@ -55,6 +55,17 @@ test('parse - object inside array', () => {
   expect(Jsonc.parse(`[{}]`)).toEqual([{}])
 })
 
+test('parse - line comment inside array', () => {
+  expect(
+    Jsonc.parse(`[//
+]`),
+  ).toEqual([])
+})
+
+test('parse - block comment inside array', () => {
+  expect(Jsonc.parse(`[/**/]`)).toEqual([])
+})
+
 test('parse - array inside array', () => {
   expect(Jsonc.parse(`[[]]`)).toEqual([[]])
 })
