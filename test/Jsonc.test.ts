@@ -104,7 +104,7 @@ test('parse - null', () => {
   expect(Jsonc.parse(`null`)).toEqual(null)
 })
 
-test.skip('parse - object with multiple properties and trailing comma', () => {
+test('parse - object with multiple properties and trailing comma', () => {
   expect(
     Jsonc.parse(`{
   "a": 1,
@@ -178,4 +178,8 @@ test('parse - invalid - text after quote', () => {
   "git.confirmDiscard": "t"t
 }`),
   ).toEqual({ 'git.confirmDiscard': 't' })
+})
+
+test('parse - text', () => {
+  expect(Jsonc.parse(`abc`)).toBe(undefined)
 })
