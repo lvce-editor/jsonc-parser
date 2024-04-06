@@ -43,6 +43,10 @@ test('parse - number', () => {
   expect(Jsonc.parse(`1`)).toBe(1)
 })
 
+test('parse - zero length string', () => {
+  expect(Jsonc.parse('""')).toBe('')
+})
+
 test('parse - string', () => {
   expect(Jsonc.parse(`"test"`)).toBe('test')
 })
@@ -61,6 +65,10 @@ test('parse - string inside array', () => {
 
 test('parse - multiple numbers inside array', () => {
   expect(Jsonc.parse(`[1,2,3]`)).toEqual([1, 2, 3])
+})
+
+test('parse - empty object', () => {
+  expect(Jsonc.parse('{}')).toEqual({})
 })
 
 test('parse - object with multiple properties', () => {
@@ -182,4 +190,8 @@ test('parse - invalid - text after quote', () => {
 
 test('parse - text', () => {
   expect(Jsonc.parse(`abc`)).toBe(undefined)
+})
+
+test('parse - empty string', () => {
+  expect(Jsonc.parse(``)).toBe(undefined)
 })
