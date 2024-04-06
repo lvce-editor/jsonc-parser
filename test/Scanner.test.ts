@@ -141,13 +141,24 @@ test('scanValue - literal', () => {
 })
 
 test('scanComment - block comment', () => {
-  const text = '/*'
+  const text = '*/'
+  const scanner = Scanner.createScanner(text)
+  expect(scanner.scanComment()).toBe(undefined)
+})
+
+test('scanComment - partial block comment', () => {
+  const text = '*a'
   const scanner = Scanner.createScanner(text)
   expect(scanner.scanComment()).toBe(undefined)
 })
 
 test('scanComment - line comment', () => {
-  const text = '//'
+  const text = '/'
+  const scanner = Scanner.createScanner(text)
+  expect(scanner.scanComment()).toBe(undefined)
+})
+test('scanComment - other', () => {
+  const text = 'a'
   const scanner = Scanner.createScanner(text)
   expect(scanner.scanComment()).toBe(undefined)
 })
@@ -162,4 +173,10 @@ test('scanString - with whitespace', () => {
   const text = ' "abc"'
   const scanner = Scanner.createScanner(text)
   expect(scanner.scanString()).toBe('abc')
+})
+
+test('getOffset', () => {
+  const text = ' '
+  const scanner = Scanner.createScanner(text)
+  expect(scanner.getOffset()).toBe(0)
 })
