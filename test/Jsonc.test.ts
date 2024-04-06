@@ -43,6 +43,13 @@ test('parse - number', () => {
   expect(Jsonc.parse(`1`)).toBe(1)
 })
 
+test('parse - number inside object', () => {
+  expect(Jsonc.parse(`{1}`)).toEqual({})
+})
+test('parse - text inside object', () => {
+  expect(Jsonc.parse(`{abc}`)).toEqual({})
+})
+
 test('parse - zero length string', () => {
   expect(Jsonc.parse('""')).toBe('')
 })
