@@ -19,9 +19,28 @@
     "singleQuote": true
   },
   "jest": {
-    "testMatch": [
-      "<rootDir>/test/*.test.js"
+    "extensionsToTreatAsEsm": [
+      ".ts"
     ],
+    "moduleNameMapper": {
+      "^(\\.{1,2}/.*)\\.js$": "$1"
+    },
+    "transform": {
+      "^.+\\.tsx?$": [
+        "ts-jest",
+        {
+          "useESM": true
+        }
+      ]
+    },
+    "collectCoverage": true,
+    "coverageThreshold": {
+      "global": {
+        "branches": 83,
+        "functions": 90,
+        "lines": 94
+      }
+    },
     "modulePathIgnorePatterns": [
       "<rootDir>/dist/"
     ]
@@ -32,6 +51,7 @@
     "jest": "^29.7.0",
     "prettier": "^3.2.5",
     "rollup": "^4.14.0",
+    "ts-jest": "^29.1.2",
     "typescript": "^5.4.4"
   }
 }
