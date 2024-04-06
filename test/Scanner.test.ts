@@ -139,3 +139,27 @@ test('scanValue - literal', () => {
   const scanner = Scanner.createScanner(text)
   expect(scanner.scanValue()).toBe(JsoncTokenType.Literal)
 })
+
+test('scanComment - block comment', () => {
+  const text = '/*'
+  const scanner = Scanner.createScanner(text)
+  expect(scanner.scanComment()).toBe(undefined)
+})
+
+test('scanComment - line comment', () => {
+  const text = '//'
+  const scanner = Scanner.createScanner(text)
+  expect(scanner.scanComment()).toBe(undefined)
+})
+
+test('scanString', () => {
+  const text = '"abc"'
+  const scanner = Scanner.createScanner(text)
+  expect(scanner.scanString()).toBe('abc')
+})
+
+test('scanString - with whitespace', () => {
+  const text = ' "abc"'
+  const scanner = Scanner.createScanner(text)
+  expect(scanner.scanString()).toBe('abc')
+})
