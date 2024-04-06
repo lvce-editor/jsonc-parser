@@ -38,12 +38,12 @@ jobs:
         os: [windows-2022, macos-12, ubuntu-22.04]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version-file: '.nvmrc'
           registry-url: 'https://registry.npmjs.org'
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         id: npm-cache
         with:
           path: '**/node_modules'
