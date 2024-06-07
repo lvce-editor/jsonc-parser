@@ -16,7 +16,8 @@
     "strict": true,
     "strictNullChecks": false,
     "noImplicitAny": false,
-    "rootDir": "."
+    "rootDir": ".",
+    "allowImportingTsExtensions": true
   },
   "include": ["src", "test"]
 }
