@@ -1,5 +1,5 @@
-import * as CharCode from '../JsoncCharCode/JsoncCharCode.js'
-import * as TokenType from '../JsoncTokenType/JsoncTokenType.js'
+import * as CharCode from '../JsoncCharCode/JsoncCharCode.ts'
+import * as TokenType from '../JsoncTokenType/JsoncTokenType.ts'
 
 export const createScanner = (text) => {
   let offset = 0
