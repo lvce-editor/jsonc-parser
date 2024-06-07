@@ -1,10 +1,10 @@
-import * as TokenType from '../JsoncTokenType/JsoncTokenType.js'
-import * as ParseComment from '../ParseComment/ParseComment.js'
-import * as ParseLiteral from '../ParseLiteral/ParseLiteral.js'
-import * as ParseNumber from '../ParseNumber/ParseNumber.js'
-import * as ParsePropertyColon from '../ParsePropertyColon/ParsePropertyColon.js'
-import * as ParsePropertyName from '../ParsePropertyName/ParsePropertyName.js'
-import * as ParseString from '../ParseString/ParseString.js'
+import * as TokenType from '../JsoncTokenType/JsoncTokenType.ts'
+import * as ParseComment from '../ParseComment/ParseComment.ts'
+import * as ParseLiteral from '../ParseLiteral/ParseLiteral.ts'
+import * as ParseNumber from '../ParseNumber/ParseNumber.ts'
+import * as ParsePropertyColon from '../ParsePropertyColon/ParsePropertyColon.ts'
+import * as ParsePropertyName from '../ParsePropertyName/ParsePropertyName.ts'
+import * as ParseString from '../ParseString/ParseString.ts'
 
 const parseObject = (scanner) => {
   const object = {}

@@ -1,4 +1,4 @@
-import * as Literal from '../Literal/Literal.js'
+import * as Literal from '../Literal/Literal.ts'
 
 export const parseLiteral = (scanner) => {
   const rawValue = scanner.scanLiteral()
