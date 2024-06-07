@@ -1,1 +1,1 @@
-export * from "./parts/Jsonc/Jsonc.js";
+export * from './parts/Jsonc/Jsonc.ts'
