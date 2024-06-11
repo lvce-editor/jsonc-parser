@@ -49,12 +49,12 @@ const parseArray = (scanner: Scanner) => {
       case TokenType.Slash:
         scanner.scanComment()
         break
+      case TokenType.Comma:
+        break
       default:
         scanner.goBack(1)
         const value = parseValue(scanner)
         array.push(value)
-        break
-      case TokenType.Comma:
         break
     }
   }
