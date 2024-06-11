@@ -60,7 +60,7 @@ const getVersion = async () => {
 await rm(dist, { recursive: true, force: true })
 await mkdir(dist, { recursive: true })
 
-await execa(`npx`, ['rollup', '-c'])
+await execa('npx', ['rollup', '-c'])
 
 const version = await getVersion()
 

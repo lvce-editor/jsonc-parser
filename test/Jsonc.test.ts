@@ -1,5 +1,5 @@
+import { expect, test } from '@jest/globals'
 import * as Jsonc from '../src/parts/Jsonc/Jsonc.ts'
-import { test, expect } from '@jest/globals'
 
 test('parse - line comment and object', () => {
   expect(
@@ -16,7 +16,7 @@ test('parse - block comment and object', () => {
 })
 
 test('parse - object', () => {
-  expect(Jsonc.parse(`{}`)).toEqual({})
+  expect(Jsonc.parse('{}')).toEqual({})
 })
 
 test('parse - line comment inside object', () => {
@@ -36,18 +36,18 @@ test('parse - line comment inside array', () => {
 })
 
 test('parse - array', () => {
-  expect(Jsonc.parse(`[]`)).toEqual([])
+  expect(Jsonc.parse('[]')).toEqual([])
 })
 
 test('parse - number', () => {
-  expect(Jsonc.parse(`1`)).toBe(1)
+  expect(Jsonc.parse('1')).toBe(1)
 })
 
 test('parse - number inside object', () => {
-  expect(Jsonc.parse(`{1}`)).toEqual({})
+  expect(Jsonc.parse('{1}')).toEqual({})
 })
 test('parse - text inside object', () => {
-  expect(Jsonc.parse(`{abc}`)).toEqual({})
+  expect(Jsonc.parse('{abc}')).toEqual({})
 })
 
 test('parse - zero length string', () => {
@@ -55,11 +55,11 @@ test('parse - zero length string', () => {
 })
 
 test('parse - string', () => {
-  expect(Jsonc.parse(`"test"`)).toBe('test')
+  expect(Jsonc.parse('"test"')).toBe('test')
 })
 
 test('parse - object inside array', () => {
-  expect(Jsonc.parse(`[{}]`)).toEqual([{}])
+  expect(Jsonc.parse('[{}]')).toEqual([{}])
 })
 
 test('parse - line comment inside array', () => {
@@ -70,19 +70,19 @@ test('parse - line comment inside array', () => {
 })
 
 test('parse - block comment inside array', () => {
-  expect(Jsonc.parse(`[/**/]`)).toEqual([])
+  expect(Jsonc.parse('[/**/]')).toEqual([])
 })
 
 test('parse - array inside array', () => {
-  expect(Jsonc.parse(`[[]]`)).toEqual([[]])
+  expect(Jsonc.parse('[[]]')).toEqual([[]])
 })
 
 test('parse - string inside array', () => {
-  expect(Jsonc.parse(`[""]`)).toEqual([''])
+  expect(Jsonc.parse('[""]')).toEqual([''])
 })
 
 test('parse - multiple numbers inside array', () => {
-  expect(Jsonc.parse(`[1,2,3]`)).toEqual([1, 2, 3])
+  expect(Jsonc.parse('[1,2,3]')).toEqual([1, 2, 3])
 })
 
 test('parse - empty object', () => {
@@ -119,15 +119,15 @@ test('parse - object with array and other property', () => {
 })
 
 test('parse - boolean - true', () => {
-  expect(Jsonc.parse(`true`)).toEqual(true)
+  expect(Jsonc.parse('true')).toEqual(true)
 })
 
 test('parse - boolean - false', () => {
-  expect(Jsonc.parse(`false`)).toEqual(false)
+  expect(Jsonc.parse('false')).toEqual(false)
 })
 
 test('parse - null', () => {
-  expect(Jsonc.parse(`null`)).toEqual(null)
+  expect(Jsonc.parse('null')).toEqual(null)
 })
 
 test('parse - object with multiple properties and trailing comma', () => {
@@ -166,7 +166,7 @@ test('parse - block comment inside array', () => {
 })
 
 test('parse - floating point number', () => {
-  expect(Jsonc.parse(`0.5`)).toEqual(0.5)
+  expect(Jsonc.parse('0.5')).toEqual(0.5)
 })
 
 test('parse - boolean property value', () => {
@@ -207,9 +207,9 @@ test('parse - invalid - text after quote', () => {
 })
 
 test('parse - text', () => {
-  expect(Jsonc.parse(`abc`)).toBe(undefined)
+  expect(Jsonc.parse('abc')).toBe(undefined)
 })
 
 test('parse - empty string', () => {
-  expect(Jsonc.parse(``)).toBe(undefined)
+  expect(Jsonc.parse('')).toBe(undefined)
 })
