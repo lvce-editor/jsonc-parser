@@ -1,4 +1,4 @@
-import * as Jsonc from '../src/parts/Jsonc/Jsonc.js'
+import * as Jsonc from '../src/parts/Jsonc/Jsonc.ts'
 import { test, expect } from '@jest/globals'
 
 test('parse - line comment and object', () => {

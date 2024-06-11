@@ -1,5 +1,5 @@
-import * as CreateScanner from '../src/parts/CreateScanner/CreateScanner.js'
-import * as JsoncTokenType from '../src/parts/JsoncTokenType/JsoncTokenType.js'
+import * as CreateScanner from '../src/parts/CreateScanner/CreateScanner.ts'
+import * as JsoncTokenType from '../src/parts/JsoncTokenType/JsoncTokenType.ts'
 import { test, expect } from '@jest/globals'
 
 test('scanValue - empty', () => {
