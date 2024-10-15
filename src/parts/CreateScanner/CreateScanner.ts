@@ -26,7 +26,6 @@ export const createScanner = (text: string): Scanner => {
           offset++
           return TokenType.DoubleQuote
         case CharCode.Comma:
-          text.slice(offset) //?
           offset++
           return TokenType.Comma
         case CharCode.Zero:
