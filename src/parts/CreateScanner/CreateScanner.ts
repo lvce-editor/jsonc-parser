@@ -128,6 +128,8 @@ export const createScanner = (text: string): Scanner => {
         case CharCode.Tab:
         case CharCode.Space:
         case CharCode.Comma:
+        case CharCode.CurlyClose:
+        case CharCode.SquareClose:
           break outer
         default:
           break
