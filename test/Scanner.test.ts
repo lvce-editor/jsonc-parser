@@ -140,6 +140,18 @@ test('scanValue - literal', () => {
   expect(scanner.scanValue()).toBe(JsoncTokenType.Literal)
 })
 
+test('scanLiteral - stops before curly close', () => {
+  const scanner = CreateScanner.createScanner('true}')
+  expect(scanner.scanLiteral()).toBe('true')
+  expect(scanner.scanValue()).toBe(JsoncTokenType.CurlyClose)
+})
+
+test('scanLiteral - stops before square close', () => {
+  const scanner = CreateScanner.createScanner('false]')
+  expect(scanner.scanLiteral()).toBe('false')
+  expect(scanner.scanValue()).toBe(JsoncTokenType.SquareClose)
+})
+
 test('scanComment - block comment', () => {
   const text = '*/'
   const scanner = CreateScanner.createScanner(text)

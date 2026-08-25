@@ -13,7 +13,6 @@ const parseObject = (scanner: Scanner) => {
     const token = scanner.scanValue()
     switch (token) {
       case TokenType.Eof:
-      case TokenType.None:
       case TokenType.CurlyClose:
         break outer
       case TokenType.DoubleQuote:
@@ -43,13 +42,15 @@ const parseArray = (scanner: Scanner) => {
     const token = scanner.scanValue()
     switch (token) {
       case TokenType.Eof:
-      case TokenType.None:
       case TokenType.SquareClose:
         break outer
       case TokenType.Slash:
         scanner.scanComment()
         break
       case TokenType.Comma:
+        break
+      case TokenType.Literal:
+        array.push(ParseLiteral.parseLiteral(scanner))
         break
       default:
         scanner.goBack(1)

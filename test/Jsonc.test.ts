@@ -147,6 +147,34 @@ test('parse - boolean property value', () => {
   ).toEqual({ enabled: true })
 })
 
+test('parse - compact object with boolean property value', () => {
+  expect(Jsonc.parse('{"enabled":true}')).toEqual({ enabled: true })
+})
+
+test('parse - compact object with false property value', () => {
+  expect(Jsonc.parse('{"enabled":false}')).toEqual({ enabled: false })
+})
+
+test('parse - compact object with null property value', () => {
+  expect(Jsonc.parse('{"value":null}')).toEqual({ value: null })
+})
+
+test('parse - compact array with literal values', () => {
+  expect(Jsonc.parse('[true,false,null]')).toEqual([true, false, null])
+})
+
+test('parse - compact nested literals', () => {
+  expect(Jsonc.parse('{"values":[true,false,null]}')).toEqual({ values: [true, false, null] })
+})
+
+test('parse - unclosed compact object with boolean property value', () => {
+  expect(Jsonc.parse('{"enabled":true')).toEqual({ enabled: true })
+})
+
+test('parse - unclosed compact array with boolean value', () => {
+  expect(Jsonc.parse('[true')).toEqual([true])
+})
+
 test('parse - object inside object', () => {
   expect(
     Jsonc.parse(`{
