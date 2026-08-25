@@ -15,6 +15,10 @@
   ],
   "author": "Lvce Editor",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lvce-editor/jsonc-parser"
+  },
   "prettier": {
     "semi": false,
     "singleQuote": true
